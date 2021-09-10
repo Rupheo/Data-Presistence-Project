@@ -9,6 +9,7 @@ public class HighScoreManager : MonoBehaviour
 	public static HighScoreManager Instance;
 
 	public string PlayerName;
+	public string HighPlayerName;
 	public int HighScore;
 
 	private void Awake()
@@ -19,6 +20,7 @@ public class HighScoreManager : MonoBehaviour
 			return;
 		}
 
+		LoadHightScore();
 		Instance = this;
 		DontDestroyOnLoad(gameObject);
 	}
@@ -49,7 +51,7 @@ public class HighScoreManager : MonoBehaviour
 			string json = File.ReadAllText(path);
 			SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-			PlayerName = data.Name;
+			HighPlayerName = data.Name;
 			HighScore = data.Score;
 		}
 	}

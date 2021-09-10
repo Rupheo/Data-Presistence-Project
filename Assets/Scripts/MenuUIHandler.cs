@@ -14,11 +14,16 @@ using TMPro;
 public class MenuUIHandler : MonoBehaviour
 {
 	public TMP_InputField nameInput;
+	//public TextMeshProUGUI scoreText;
 	private string text;
-
+/*
+	private void Start()
+	{
+		scoreText.SetText(HighScoreManager.Instance.HighScore.ToString());
+	}*/
 	private void Update()
 	{
-			text = nameInput.GetComponent<TMP_InputField>().text;
+		text = nameInput.GetComponent<TMP_InputField>().text;
 	}
 
 	public void StartGame()

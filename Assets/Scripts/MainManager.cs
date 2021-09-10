@@ -42,7 +42,7 @@ public class MainManager : MonoBehaviour
             }
         }
         
-        HighScoreText.text = $"High Score : { HighScoreManager.Instance.PlayerName} :" +
+        HighScoreText.text = $"High Score : { HighScoreManager.Instance.HighPlayerName} :" +
             $" {HighScoreManager.Instance.HighScore}";
     }
 
@@ -87,4 +87,10 @@ public class MainManager : MonoBehaviour
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
+
+    /*
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }*/
 }
