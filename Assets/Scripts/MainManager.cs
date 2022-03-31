@@ -19,10 +19,10 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
-	private void Awake()
-	{
-        HighScoreManager.Instance.LoadHightScore();
-	}
+    //added variable to hold HighScoreManager Instance references
+    string m_HighPlayerName;
+    string m_CurrentPlayerName;
+    int m_HighScore; 
 
 	// Start is called before the first frame update
 	void Start()
@@ -41,9 +41,14 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
-        
-        HighScoreText.text = $"High Score : { HighScoreManager.Instance.HighPlayerName} :" +
-            $" {HighScoreManager.Instance.HighScore}";
+
+        //References to HighScoreManager.Instance varibles 
+        m_HighPlayerName = HighScoreManager.Instance.HighPlayerName;
+        m_CurrentPlayerName = HighScoreManager.Instance.PlayerName;
+        m_HighScore = HighScoreManager.Instance.HighScore;
+
+        HighScoreText.text = $"High Score : {m_HighPlayerName} :" +
+            $" {m_HighScore}";
     }
 
     private void Update()
@@ -66,6 +71,7 @@ public class MainManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                //SceneManager.LoadScene(0);  Unused
             }
         }
     }
@@ -78,16 +84,23 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
-        if (m_Points > HighScoreManager.Instance.HighScore)
-        {
-            HighScoreManager.Instance.HighScore = m_Points;
-            HighScoreManager.Instance.SaveHighScore();
-        }
+        CheckForHighScore();
 
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
 
+    void CheckForHighScore()
+	{
+        if (m_Points > m_HighScore)
+        {
+            HighScoreManager.Instance.HighPlayerName = m_CurrentPlayerName;
+            HighScoreManager.Instance.HighScore = m_Points;
+            SaveData.SaveGameData();
+        }
+    }
+
+    //Unused
     /*
     public void MainMenu()
     {

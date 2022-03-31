@@ -13,25 +13,14 @@ using TMPro;
 
 public class MenuUIHandler : MonoBehaviour
 {
-	public TMP_InputField nameInput;
-	//public TextMeshProUGUI scoreText;
-	private string text;
-/*
-	private void Start()
-	{
-		scoreText.SetText(HighScoreManager.Instance.HighScore.ToString());
-	}*/
-	private void Update()
-	{
-		text = nameInput.GetComponent<TMP_InputField>().text;
-	}
+	[SerializeField] TMP_InputField nameInput;
 
 	public void StartGame()
 	{
-		if (text == "")
+		if (nameInput.text == "")
 			HighScoreManager.Instance.PlayerName = "Anonymous";
 		else
-			HighScoreManager.Instance.PlayerName = nameInput.GetComponent<TMP_InputField>().text;
+			HighScoreManager.Instance.PlayerName = nameInput.text;
 
 		SceneManager.LoadScene(1);
 	}
